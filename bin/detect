@@ -5,7 +5,7 @@
 # Apache 2.0 License.
 # ---------------------------------------------------------------------
 
-if [ ! -f $1/index.html ]
+if [ -f $1/index.html ]
   then echo "No" && exit 1
   else echo "Static" && exit 0
 fi

@@ -9,14 +9,14 @@ buildpack_root=$PWD
 
 # ---------------------------------------------------------------------
 
-buildpack_pcre_version=8.34
+buildpack_pcre_version=8.35
 buildpack_pcre_url=ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre
 buildpack_pcre_download=$buildpack_pcre_url/pcre-$buildpack_pcre_version.tar.gz
 
 # ---------------------------------------------------------------------
 
 buildpack_nginx_url=http://nginx.org/download
-buildpack_nginx_version=1.4.6
+buildpack_nginx_version=1.7.2
 buildpack_nginx_build_flags=(
   --with-http_gzip_static_module
   --with-http_realip_module
@@ -36,6 +36,7 @@ buildpack_nginx_build_flags=(
   --without-http_empty_gif_module
   --prefix=/app/nginx
   --with-pcre=./pcre-$buildpack_pcre_version
+  --with-ld-opt="-static"
 )
 
 buildpack_nginx_download=$buildpack_nginx_url/nginx-$buildpack_nginx_version.tar.gz
@@ -118,7 +119,8 @@ function buildpack_cleanup()
 function buildpack_dependencies()
 {
   if type apt-get; then
-    sudo apt-get install zlib1g-dev libssl-dev \
+  	sudo apt-get update
+    sudo apt-get install zlib1g-dev libssl-dev curl build-essential \
       --no-install-recommends --yes
   fi
 }
@@ -143,6 +145,5 @@ case "$1" in
     buildpack_cleanup && \
     buildpack_download && \
     buildpack_build && \
-    buildpack_setup && \
-    buildpack_dependency_cleanup;;
+    buildpack_setup
 esac

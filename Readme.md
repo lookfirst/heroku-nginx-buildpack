@@ -4,7 +4,14 @@ _For those of you wondering why the builds are no longer publically available, i
 
 ## Building binaries
 
+* Install Vagrant and VirtualBox
+
 ```
+mkdir /tmp/nginx
+vagrant up
+vagrant ssh
+cd /vagrant
+
 cd <buildpack-dir>
 support/heroku-buildpack run
 ```

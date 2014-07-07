@@ -1,5 +1,5 @@
 /Gemfile.lock
-/builds
 /sources
 /.bundle
 /vendor/bundle
+.vagrant
