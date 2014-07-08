@@ -11,24 +11,21 @@ mkdir /tmp/nginx
 vagrant up
 vagrant ssh
 cd /vagrant
-
-cd <buildpack-dir>
 support/heroku-buildpack run
 ```
 
-* `download` - *Pulls the sources from Nginx and PCRE.*
-* `cleanup` - *Cleans up both builds and sources.*
-* `build` - *Initiates a vulcan build on Heroku.*
-* `run` - *Runs everything in one clean shot for you.*
-* `setup` - *Removes html and copies conf and logs to builds/nginx.*
-
-*After you have built your binary and uploaded it, update the variable inside of bin/compile.*
+* Commit the builds directory.
 
 ## Using this buildpack as is
+
+Create or add this buildpack to an app on heroku.
 
 ```
 heroku config:add BUILDPACK_URL=https://github.com/envygeeks/heroku-nginx-buildpack.git
 ```
+
+In the app, add a `index.html` and a `nginx.conf`. This becomes the `public` folder when
+you push the app up to heroku.
 
 ## Custom configuration files
 
